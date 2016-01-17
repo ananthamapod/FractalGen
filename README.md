@@ -1,22 +1,32 @@
-#Engine-Seed
-> A seed project to get started with the famous engine
+# FractalGen
+> A simple fractal generator made with the Famous.js engine for funzies
 
-[![Build Status](https://travis-ci.org/Famous/engine-seed.svg?branch=master)](https://travis-ci.org/Famous/engine-seed)  [![Dependency Status](https://david-dm.org/famous/engine-seed.svg)](https://david-dm.org/famous/engine-seed) [![devDependency Status](https://david-dm.org/famous/engine-seed/dev-status.svg)](https://david-dm.org/famous/engine-seed#info=devDependencies)
+## Description
+
+Generates spinning fractal patterns with two buttons to increase and decrease fractal levels.
+
+![Demo image](demo.png)
+
+The button on the left, marked by the Famous logo <img src="public/images/famous_logo.png" alt="Drawing" style="height: 20px;"/>
+, can be clicked to generate the next level of the fractal. The red button on the right can be clicked to remove the deepest level of the fractal.
 
 ---
 
-###Installation
+## Installation
+
+Nothing to it. Just clone it and then install dependencies with npm.
 
 ```bash
-git clone https://github.com/Famous/engine-seed
-cd engine-seed
-# rm -rf .git && git init && git commit -m "Make it so" # optionally reset git history
-npm i # install dependencies
+git clone https://github.com/ananthamapod/FractalGen
+cd FractalGen
+npm install
 ```
 
 ---
 
-###Development
+## Running
+*From the Famous Seed Project:*
+
 Run the dev server with ```npm run dev```
 
 Now the dev server should be running on localhost:1618
@@ -27,24 +37,6 @@ Run All Tests with ```npm test```
 
 ---
 
-###Need help?
+## LICENSE
 
-Please join us on the "famous-community" slack.
-
-Sign up --> http://slack.famous.org/signup
-
-Join the discussion --> http://slack.famous.org/
-
-There is a bunch of learning material at --> http://famous.org/learn
-
-There are api docs at -->
-http://famous.org/docs
-
-
-Do you think this readme needs work? So do we! Feel free to send a PR!!!
-
----
-
-###LICENSE
-
-MIT
+[LICENSE](LICENSE)
