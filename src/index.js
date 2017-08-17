@@ -1,5 +1,6 @@
-/************ FAMOUS INTERNALS INTITIALIZATION ************/
 'use strict';
+
+/************ FAMOUS INTERNALS INTITIALIZATION ************/
 
 var DOMElement = require('famous/dom-renderables/DOMElement');
 var FamousEngine = require('famous/core/FamousEngine');
@@ -83,12 +84,42 @@ delete window.children;
 
 // Click handler for button to generate children for the next fractal level
 generate.addUIEvent('click');
-generate.onReceive = function(event, payload) {
+generate.onReceive = addLevel;
+
+
+// Click handler for button to reduce the fractal level
+reduce.addUIEvent('click');
+reduce.onReceive = removeLevel;
+/******************* GET THE SPINNING GOING ********************/
+
+var spinner = parent.addComponent({
+  onUpdate: function(time) {
+    var s = 1;
+    levels.forEach(function(element) {
+      element.forEach(function(elem) {
+        elem.setRotation(0, 0, s*time / 1000);
+      });
+      s *= -2;
+    });
+    parent.requestUpdateOnNextTick(spinner);
+  }
+});
+
+// Starting the damn thing
+parent.requestUpdate(spinner);
+FamousEngine.init();
+
+/*
+ * Adds children to each element of previously highest level of fractal,
+ * each square in current highest level gets 4 spinning squares
+ * (new level of fractal)
+ */
+function addLevel(event, payload) {
   if (event === 'click') {
     var depth = levels.length;
     var children = [];
     if(levels[depth-1].length > 4000) {
-      alert("There are over 4000 elements in the current level of the fractal! Adding more levels is neither wise or necessary");
+      alert("There are over 4000 elements in the current level of the fractal! Adding more levels is neither wise nor necessary");
       return;
     }
     // Add children to the currently last level of the fractal. Add as many children as supported by the branching factor
@@ -116,10 +147,10 @@ generate.onReceive = function(event, payload) {
   }
 };
 
-
-// Click handler for button to reduce the fractal level
-reduce.addUIEvent('click');
-reduce.onReceive = function(event, payload) {
+/*
+ * Removes the latest level of spinning squares added (latest level of fractal)
+ */
+function removeLevel(event, payload) {
   if (event === 'click') {
     var length = levels.length;
     if (length > 1) {
@@ -134,22 +165,3 @@ reduce.onReceive = function(event, payload) {
     }
   }
 };
-
-/******************* GET THE SPINNING GOING ********************/
-
-var spinner = parent.addComponent({
-  onUpdate: function(time) {
-    var s = 1;
-    levels.forEach(function(element) {
-      element.forEach(function(elem) {
-        elem.setRotation(0, 0, s*time / 1000);
-      });
-      s *= -2;
-    });
-    parent.requestUpdateOnNextTick(spinner);
-  }
-});
-
-// Starting the damn thing
-parent.requestUpdate(spinner);
-FamousEngine.init();
